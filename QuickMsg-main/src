@@ -1,0 +1,398 @@
+local QuickMessageV2 = Instance.new("ScreenGui")
+local mainFrame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local header = Instance.new("Frame")
+local UICorner_2 = Instance.new("UICorner")
+local header_Cover = Instance.new("Frame")
+local title = Instance.new("TextLabel")
+local close = Instance.new("ImageButton")
+local messageFrame = Instance.new("Frame")
+local UICorner_3 = Instance.new("UICorner")
+local header_Cover_2 = Instance.new("Frame")
+local messageBox = Instance.new("TextBox")
+local UICorner_4 = Instance.new("UICorner")
+local startDeletePhase = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+local deleteIcon = Instance.new("ImageLabel")
+local UIListLayout = Instance.new("UIListLayout")
+local startDeletePhase_2 = Instance.new("TextButton")
+local UICorner_6 = Instance.new("UICorner")
+local deleteIcon_2 = Instance.new("ImageLabel")
+local UIListLayout_2 = Instance.new("UIListLayout")
+local messageConatiner = Instance.new("Frame")
+local messagesFrame = Instance.new("ScrollingFrame")
+local messagesList = Instance.new("UIListLayout")
+
+local function UpdateSize()
+    local cS = messagesList.AbsoluteContentSize
+
+    game.TweenService:Create(messagesFrame, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+        CanvasSize = UDim2.new(0,cS.X,0,cS.Y)
+    }):Play()
+end
+
+UpdateSize()
+
+local tween = game:GetService("TweenService")
+local tweeninfo = TweenInfo.new
+local input = game:GetService("UserInputService")
+local run = game:GetService("RunService")
+
+function DraggingEnabled(frame, parent)
+        
+    parent = parent or frame
+    
+    -- stolen from wally or kiriot, kek
+    local dragging = false
+    local dragInput, mousePos, framePos
+
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            mousePos = input.Position
+            framePos = parent.Position
+            
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
+            dragInput = input
+        end
+    end)
+
+    input.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - mousePos
+            parent.Position  = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
+        end
+    end)
+end
+
+getgenv().DeletePhase = false
+
+DraggingEnabled(header, mainFrame)
+
+QuickMessageV2.Name = "QuickMessage V2"
+QuickMessageV2.Parent = game.CoreGui
+QuickMessageV2.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+QuickMessageV2.ResetOnSpawn = false
+
+mainFrame.Name = "mainFrame"
+mainFrame.Parent = QuickMessageV2
+mainFrame.BackgroundColor3 = Color3.fromRGB(41, 44, 49)
+mainFrame.Position = UDim2.new(0.311515152, 0, 0.362864077, 0)
+mainFrame.Size = UDim2.new(0, 459, 0, 313)
+
+UICorner.CornerRadius = UDim.new(0, 3)
+UICorner.Parent = mainFrame
+
+header.Name = "header"
+header.Parent = mainFrame
+header.BackgroundColor3 = Color3.fromRGB(53, 56, 63)
+header.Size = UDim2.new(1, 0, 0, 30)
+
+UICorner_2.CornerRadius = UDim.new(0, 3)
+UICorner_2.Parent = header
+
+header_Cover.Name = "header_Cover"
+header_Cover.Parent = header
+header_Cover.BackgroundColor3 = Color3.fromRGB(53, 56, 63)
+header_Cover.BorderSizePixel = 0
+header_Cover.Position = UDim2.new(0, 0, 0.816666663, 0)
+header_Cover.Size = UDim2.new(1, 0, 0, 5)
+
+title.Name = "title"
+title.Parent = header
+title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundTransparency = 1.000
+title.Position = UDim2.new(0.0174291935, 0, 0.233333334, 0)
+title.Size = UDim2.new(0, 188, 0, 17)
+title.Font = Enum.Font.Gotham
+title.Text = "Quick Message v2"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 14.000
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+close.Name = "close"
+close.Parent = header
+close.BackgroundTransparency = 1.000
+close.Position = UDim2.new(0.943355143, 0, 0.166666672, 0)
+close.Size = UDim2.new(0, 20, 0, 20)
+close.ZIndex = 2
+close.Image = "rbxassetid://3926305904"
+close.ImageColor3 = Color3.fromRGB(255, 94, 94)
+close.ImageRectOffset = Vector2.new(284, 4)
+close.ImageRectSize = Vector2.new(24, 24)
+close.MouseButton1Click:Connect(function()
+    QuickMessageV2:Destroy()
+end)
+
+messageFrame.Name = "messageFrame"
+messageFrame.Parent = mainFrame
+messageFrame.BackgroundColor3 = Color3.fromRGB(45, 48, 54)
+messageFrame.Position = UDim2.new(0, 0, 0.891373813, 0)
+messageFrame.Size = UDim2.new(1, 0, 0.0127795525, 30)
+
+UICorner_3.CornerRadius = UDim.new(0, 3)
+UICorner_3.Parent = messageFrame
+
+header_Cover_2.Name = "header_Cover"
+header_Cover_2.Parent = messageFrame
+header_Cover_2.BackgroundColor3 = Color3.fromRGB(45, 48, 54)
+header_Cover_2.BorderSizePixel = 0
+header_Cover_2.Position = UDim2.new(0, 0, -0.0166666508, 0)
+header_Cover_2.Size = UDim2.new(1, 0, 0, 5)
+
+messageBox.Name = "messageBox"
+messageBox.Parent = messageFrame
+messageBox.BackgroundColor3 = Color3.fromRGB(45, 48, 54)
+messageBox.Position = UDim2.new(0.0174291935, 0, 0.117647059, 0)
+messageBox.Size = UDim2.new(0, 382, 0, 24)
+messageBox.ClearTextOnFocus = false
+messageBox.Font = Enum.Font.Gotham
+messageBox.PlaceholderText = "Message Here..."
+messageBox.Text = ""
+messageBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+messageBox.TextSize = 14.000
+messageBox.TextXAlignment = Enum.TextXAlignment.Left
+
+UICorner_4.CornerRadius = UDim.new(0, 3)
+UICorner_4.Parent = messageBox
+
+startDeletePhase.Name = "startDeletePhase"
+startDeletePhase.Parent = messageFrame
+startDeletePhase.BackgroundColor3 = Color3.fromRGB(54, 58, 65)
+startDeletePhase.Position = UDim2.new(0.934640527, 0, 0.117647059, 0)
+startDeletePhase.Size = UDim2.new(0, 24, 0, 24)
+startDeletePhase.AutoButtonColor = false
+startDeletePhase.Font = Enum.Font.SourceSans
+startDeletePhase.TextColor3 = Color3.fromRGB(0, 0, 0)
+startDeletePhase.TextSize = 14.000
+startDeletePhase.MouseButton1Click:Connect(function()
+    if getgenv().DeletePhase then
+        deleteIcon.Image = "rbxassetid://3926305904"
+        deleteIcon.ImageRectOffset = Vector2.new(644, 724)
+        deleteIcon.ImageRectSize = Vector2.new(36, 36)
+        game.TweenService:Create(startDeletePhase, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+            BackgroundColor3 = Color3.fromRGB(54, 58, 65)
+        }):Play()
+        for i,v in pairs(messagesFrame:GetChildren()) do
+            if v.Name == "newMessage" then
+                game.TweenService:Create(v, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(53, 56, 63)
+                }):Play()
+                v.deleteIcon.Visible = false
+                v.smsIcon.Visible  = true
+            end
+        end
+        getgenv().DeletePhase = false
+    else
+        deleteIcon.Image = "rbxassetid://3926305904"
+        deleteIcon.ImageRectOffset = Vector2.new(284, 4)
+        deleteIcon.ImageRectSize = Vector2.new(24,24)
+        game.TweenService:Create(startDeletePhase, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+            BackgroundColor3 = Color3.fromRGB(208, 62, 62)
+        }):Play()
+        for i,v in pairs(messagesFrame:GetChildren()) do
+            if v.Name == "newMessage" then
+                game.TweenService:Create(v, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(208, 42, 42)
+                }):Play()
+                v.deleteIcon.Visible = true
+                v.smsIcon.Visible = false
+            end
+        end
+        getgenv().DeletePhase = true
+    end
+end)
+
+UICorner_5.CornerRadius = UDim.new(0, 3)
+UICorner_5.Parent = startDeletePhase
+
+deleteIcon.Name = "deleteIcon"
+deleteIcon.Parent = startDeletePhase
+deleteIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+deleteIcon.BackgroundTransparency = 1.000
+deleteIcon.Size = UDim2.new(0.800000012, 0, 0.800000012, 0)
+deleteIcon.Image = "rbxassetid://3926305904"
+deleteIcon.ImageRectOffset = Vector2.new(644, 724)
+deleteIcon.ImageRectSize = Vector2.new(36, 36)
+
+UIListLayout.Parent = startDeletePhase
+UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+
+startDeletePhase_2.Name = "startDeletePhase"
+startDeletePhase_2.Parent = messageFrame
+startDeletePhase_2.BackgroundColor3 = Color3.fromRGB(54, 58, 65)
+startDeletePhase_2.Position = UDim2.new(0.867102385, 0, 0.117647059, 0)
+startDeletePhase_2.Size = UDim2.new(0, 24, 0, 24)
+startDeletePhase_2.AutoButtonColor = false
+startDeletePhase_2.Font = Enum.Font.SourceSans
+startDeletePhase_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+startDeletePhase_2.TextSize = 14.000
+startDeletePhase_2.MouseButton1Click:Connect(function()
+    if not getgenv().DeletePhase then
+        local newMessage = Instance.new("TextButton")
+        local messageCorner = Instance.new("UICorner")
+        local smsIcon = Instance.new("ImageButton")
+        local messageTxt = Instance.new("TextLabel")
+        local deleteIcon_3 = Instance.new("ImageButton")
+  
+        newMessage.Name = "newMessage"
+        newMessage.Parent = messagesFrame
+        newMessage.BackgroundColor3 = Color3.fromRGB(53, 56, 63)
+        newMessage.Size = UDim2.new(1, 0, 0, 30)
+        newMessage.AutoButtonColor = false
+        newMessage.Font = Enum.Font.SourceSans
+        newMessage.TextColor3 = Color3.fromRGB(0, 0, 0)
+        newMessage.TextSize = 14.000
+        newMessage.MouseButton1Click:Connect(function()
+            if getgenv().DeletePhase then
+                newMessage:Destroy()
+                UpdateSize()
+            else
+                local msgArgs = {
+                    [1] = messageTxt.Text,
+                    [2] = "All"
+                }
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(msgArgs))
+            end
+        end)
+
+        newMessage.MouseButton1Down:Connect(function()
+            if getgenv().DeletePhase then
+                game.TweenService:Create(newMessage, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(241, 48, 48)
+                }):Play()
+            else
+                game.TweenService:Create(newMessage, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(70, 74, 83)
+                }):Play()
+            end
+        end)
+
+        newMessage.MouseButton1Up:Connect(function()
+            if getgenv().DeletePhase then
+                game.TweenService:Create(newMessage, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(208, 42, 42)
+                }):Play()
+            else
+                game.TweenService:Create(newMessage, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(53, 56, 63)
+                }):Play()
+            end
+        end)
+        UpdateSize()
+        newMessage.MouseEnter:Connect(function()
+            if getgenv().DeletePhase then
+                game.TweenService:Create(newMessage, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(255, 51, 51)
+                }):Play()
+            else
+                game.TweenService:Create(newMessage, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(67, 71, 80)
+                }):Play()
+            end
+        end)
+
+        newMessage.MouseLeave:Connect(function()
+            if getgenv().DeletePhase then
+                game.TweenService:Create(newMessage, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(208, 42, 42)
+                }):Play()
+            else
+                game.TweenService:Create(newMessage, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                    BackgroundColor3 = Color3.fromRGB(53, 56, 63)
+                }):Play()
+            end
+        end)
+
+
+        messageCorner.CornerRadius = UDim.new(0, 3)
+        messageCorner.Name = "messageCorner"
+        messageCorner.Parent = newMessage
+
+        smsIcon.Name = "smsIcon"
+        smsIcon.Parent = newMessage
+        smsIcon.BackgroundTransparency = 1.000
+        smsIcon.LayoutOrder = 3
+        smsIcon.Position = UDim2.new(0.0157303363, 0, 0.13333334, 0)
+        smsIcon.Size = UDim2.new(0, 22, 0, 22)
+        smsIcon.ZIndex = 2
+        smsIcon.AutoButtonColor = false
+        smsIcon.Image = "rbxassetid://3926307971"
+        smsIcon.ImageRectOffset = Vector2.new(964, 84)
+        smsIcon.ImageRectSize = Vector2.new(36, 36)
+
+        messageTxt.Name = "messageTxt"
+        messageTxt.Parent = newMessage
+        messageTxt.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        messageTxt.BackgroundTransparency = 4.000
+        messageTxt.ClipsDescendants = true
+        messageTxt.Position = UDim2.new(0.0876404494, 0, 0.13333334, 0)
+        messageTxt.Size = UDim2.new(0, 393, 0, 22)
+        messageTxt.Font = Enum.Font.Gotham
+        messageTxt.Text = messageBox.Text
+        messageTxt.TextColor3 = Color3.fromRGB(255, 255, 255)
+        messageTxt.TextSize = 14.000
+        messageTxt.TextWrapped = true
+        messageTxt.TextXAlignment = Enum.TextXAlignment.Left
+
+        deleteIcon_3.Name = "deleteIcon"
+        deleteIcon_3.Parent = newMessage
+        deleteIcon_3.BackgroundTransparency = 1.000
+        deleteIcon_3.Position = UDim2.new(0.0160000008, 0, 0.133000001, 0)
+        deleteIcon_3.Size = UDim2.new(0, 22, 0, 22)
+        deleteIcon_3.Visible = false
+        deleteIcon_3.ZIndex = 2
+        deleteIcon_3.Image = "rbxassetid://3926305904"
+        deleteIcon_3.ImageRectOffset = Vector2.new(644, 724)
+        deleteIcon_3.ImageRectSize = Vector2.new(36, 36)
+    end
+end)
+
+UICorner_6.CornerRadius = UDim.new(0, 3)
+UICorner_6.Parent = startDeletePhase_2
+
+deleteIcon_2.Name = "deleteIcon"
+deleteIcon_2.Parent = startDeletePhase_2
+deleteIcon_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+deleteIcon_2.BackgroundTransparency = 1.000
+deleteIcon_2.Size = UDim2.new(0.800000012, 0, 0.800000012, 0)
+deleteIcon_2.Image = "rbxassetid://3926307971"
+deleteIcon_2.ImageRectOffset = Vector2.new(324, 364)
+deleteIcon_2.ImageRectSize = Vector2.new(36, 36)
+
+UIListLayout_2.Parent = startDeletePhase_2
+UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout_2.VerticalAlignment = Enum.VerticalAlignment.Center
+
+messageConatiner.Name = "messageConatiner"
+messageConatiner.Parent = mainFrame
+messageConatiner.BackgroundColor3 = Color3.fromRGB(41, 44, 49)
+messageConatiner.BorderSizePixel = 0
+messageConatiner.Position = UDim2.new(0.015250545, 0, 0.11821086, 0)
+messageConatiner.Size = UDim2.new(0, 445, 0, 234)
+
+messagesFrame.Name = "messagesFrame"
+messagesFrame.Parent = messageConatiner
+messagesFrame.Active = true
+messagesFrame.BackgroundColor3 = Color3.fromRGB(1, 0, 1)
+messagesFrame.BackgroundTransparency = 1.000
+messagesFrame.BorderSizePixel = 0
+messagesFrame.Size = UDim2.new(1, 0, 1, 0)
+messagesFrame.ScrollBarThickness = 0
+
+messagesList.Name = "messagesList"
+messagesList.Parent = messagesFrame
+messagesList.SortOrder = Enum.SortOrder.LayoutOrder
+messagesList.Padding = UDim.new(0, 3)

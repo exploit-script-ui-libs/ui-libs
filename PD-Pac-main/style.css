@@ -1,0 +1,39 @@
+#bod {
+    height: 1500px;
+    background: rgb(254,0,255);
+    background: linear-gradient(150deg, rgba(254,0,255,1) 0%, rgba(0,212,255,1) 100%);
+}
+
+.title {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+}
+
+.info {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+}
+
+a:link {
+    color:cornflowerblue;
+    text-decoration: none;
+}
+
+a:visited {
+    color:cornflowerblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: hotpink;
+    text-decoration: none;
+}
+
+a:active {
+    color: hotpink;
+    text-decoration: none;
+}

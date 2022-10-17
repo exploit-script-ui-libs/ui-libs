@@ -1,0 +1,41 @@
+local PlayerAdded = game.Players.PlayerAdded
+local PlayerRemoved = game.Players.PlayerRemoving
+local PlayerID = game.Players.LocalPlayer.UserId
+local IsFriends = Player:IsFriendsWith(PlayerID)
+local StarterGui = game.StarterGui
+
+PlayerAdded:Connect(function(Player) -- Friend Joined
+if IsFriends then
+StarterGui:SetCore("SendNotification",{
+Title = "Your Friend Has Joined The Game",
+Text = Player.Name .. " joined.",
+Duration = 5
+})
+end end)
+
+PlayerRemoved:Connect(function(Player) -- Friend Left
+if IsFriends then
+StarterGui:SetCore("SendNotification",{
+Title = "Your Friend Has Left The Game",
+Text = Player.Name .. " left.",
+Duration = 5
+}) 
+end end)
+
+PlayerAdded:Connect(function(Player) -- Non-Friend Joined
+if IsFriends then break else
+StarterGui:SetCore("SendNotification",{
+Title = "Has Joined The Game",
+Text = Player.Name .. " joined.",
+Duration = 5
+})
+end end)
+
+PlayerRemoved:Connect(function(Player) -- Non-Friend Left
+if IsFriends then break else
+StarterGui:SetCore("SendNotification",{
+Title = "Has Left The Game",
+Text = Player.Name .. " left.",
+Duration = 5
+})
+end end)

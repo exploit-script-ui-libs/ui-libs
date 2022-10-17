@@ -1,0 +1,93 @@
+print("By Syndicat / GraveyardUnit")
+local Hotkey = "q"
+local WalkToMouseClick = true
+local WalkToPart = false
+local WalkToCordinates = false
+local WalkToPlayer = false
+--
+local Cordinates = {["X"] = "", ["Y"] = "", ["Z"] = ""}
+local Part = " "
+local Player = ""
+function Notification(a)
+    game.StarterGui:SetCore(
+        "SendNotification",
+        {Title = "Walking To:", Text = a, Icon = "rbxassetid://0", Duration = 5}
+    )
+end
+
+function Error(a)
+    game.StarterGui:SetCore(
+        "SendNotification",
+        {Title = "Walking To:", Text = a, Icon = "rbxassetid://0", Duration = 5}
+    )
+end
+                local Mouse = game.Players.LocalPlayer:GetMouse()
+                local function WalkTo(part)
+                    Options = {AgentRadius = 2, AgentHeight = 5, AgentCanJump = true}
+                    local path = game:GetService("PathfindingService"):CreatePath(Options)
+                    path:ComputeAsync(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, part)
+                    local waypoints = path:GetWaypoints()
+                    for _, waypoint in pairs(waypoints) do
+                        local a = Instance.new("Part")
+                        a.Shape = "Ball"
+                        a.Material = "Neon"
+                        a.Size = Vector3.new(5, 5, 5)
+                        a.Position = waypoint.Position
+                        a.Anchored = true
+                        a.CanCollide = false
+                        a.Parent = game.Workspace
+                        game.Players.LocalPlayer.Character.Humanoid:MoveTo(waypoint.Position)
+                        if waypoint.Action == Enum.PathWaypointAction.Jump then
+                            game.Players.LocalPlayer.Character.Humanoid.Jump = true
+                        end
+                        game.Debris:AddItem(part, 1)
+                        game.Players.LocalPlayer.Character.Humanoid.MoveToFinished:Wait()
+                    end
+                end
+                ---
+                if WalkToPart == true then
+                    print("PartPosition Is True")
+                    while wait() do
+                        pcall(
+                            function()
+                                WalkTo(Part.Position)
+                            end
+                        )
+                    end
+                end
+
+                if WalkToMousePosition == true then
+                    print("MousePosition Is True")
+
+                    Mouse.KeyDown:Connect(
+                        function(a)
+                            if a == Hotkey  then
+                                                    local MX = Mouse.Hit.x
+                    local MY = Mouse.Hit.y
+                    local MZ = Mouse.Hit.z
+                                Notification("" .. MX, MY, MZ)
+                                WalkTo(Vector3.new(MX, MY, MZ))
+                            end
+                        end
+                    )
+
+                    if WalkToCordinates == true then
+                        Notification(
+                            "WalkToCordinates Is True, Walking To:" .. Cordinates["X"],
+                            Cordinates["Y"],
+                            Cordinates["Z"]
+                        )
+                        WalkTo(Vector3.new(Cordinates["X"], Cordinates["Y"], Cordinates["Z"]))
+                    end
+                end
+                if WalkToPlayer == true then
+                    local Target = game.Players "" .. Player.Character.HumanoidRootPart
+                    Notification(
+                        "WalkToPlayer Is True, Walking To: " ..
+                            Player ..
+                                " At: " ..
+                                    Target.Position.x .. "," .. Target.Position.y .. "," .. TargetTarget.Position.z
+                    )
+                    WalkTo(Target.Position.x, Target.Position.y, Target.Position.z)
+                end
+            

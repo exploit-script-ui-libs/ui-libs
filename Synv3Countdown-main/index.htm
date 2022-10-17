@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="flipclock.css">
+
+		<script src="../ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<script src="flipclock.min.js"></script>	
+
+		<title>Synapse v3 Countdown</title>
+	</head>
+	<body bgcolor="lightblue">
+		<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+			<center><img src="logo.png" width="728" height="138"></center>
+			<center><h1 class="title" style="font-size: 3em;">V3 Release Date:</h1></center>
+			<div class="clock" style="margin:2em;"></div>
+		</div>
+		
+		<script type="text/javascript">
+			var clock;
+
+			$(document).ready(function() {
+				clock = $('.clock').FlipClock(86400, {
+					clockFace: 'DailyCounter'
+				});
+			});
+		</script>
+		
+		<style>
+			.title {
+				font-family:'Courier New', Courier, monospace;
+				text-align: center;
+			}
+		</style>
+	</body>
+</html>

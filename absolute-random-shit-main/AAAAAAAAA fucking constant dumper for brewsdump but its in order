@@ -1,0 +1,1 @@
+function(UWU, ...) print("Constant: "..table.concat(UWU)) return table.concat(UWU, ...) end

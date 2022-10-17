@@ -1,0 +1,83 @@
+sethiddenproperty(game.Players.LocalPlayer, "MaximumSimulationRadius", math.pow(math.huge, math.huge) * math.huge)
+sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.pow(math.huge, math.huge) * math.huge)
+dead = false
+Character = game.Players.LocalPlayer.Character
+
+bullet = Character["MeshPartAccessory"]
+bhandle = bullet.Handle
+bhandle.SpecialMesh:Destroy()
+wait()
+bullet.Parent = workspace
+
+mouse = game.Players.LocalPlayer:GetMouse()
+head = Character.Head
+camera = workspace.CurrentCamera
+lt = true
+ltt = false
+
+mouse.Button1Down:Connect(
+    function()
+        if dead == false then
+            lt = false
+            ltt = true
+
+            h.Rotation = Vector3.new(-90, 125, 115)
+
+            l.Position = Vector3.new(1, 0.5, 0.5)
+            l.Rotation = Vector3.new(-95, 25, 0)
+
+            r.Position = Vector3.new(-1, 0, 0.5)
+            r.Rotation = Vector3.new(-95, -33, 0)
+            wait(0.13)
+            h.Rotation = Vector3.new(-90, 130, 110)
+
+            l.Position = Vector3.new(1, 1, 0.5)
+            l.Rotation = Vector3.new(-90, 20, 0)
+
+            r.Position = Vector3.new(-1, 0.5, 0.5)
+            r.Rotation = Vector3.new(-90, -25, 0)
+            ltt = false
+            bbav = Instance.new("BodyAngularVelocity", bhandle)
+            bbav.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+            bbav.P = 1000000000000000000000000000
+            bbav.AngularVelocity =
+                Vector3.new(10000000000000000000000000000000, 100000000000000000000000000, 100000000000000000)
+            if game.Players:GetPlayerFromCharacter(mouse.Target.Parent) then
+                repeat
+                    game:GetService("RunService").RenderStepped:Wait()
+                    bhandle.Position = mouse.Target.Parent.HumanoidRootPart.CFrame.p
+                    wait(0.23)
+                until Character.Humanoid.Health == 100 or Character.Humanoid.Health == 0
+            elseif game.Players:GetPlayerFromCharacter(mouse.Target.Parent.Parent) then
+                repeat
+                    game:GetService("RunService").RenderStepped:Wait()
+                    bhandle.Position = mouse.Target.Parent.Parent.HumanoidRootPart.CFrame.p
+                    wait(0.23)
+                until Character.Humanoid.Health == 100 or Character.Humanoid.Health == 0
+            else
+                repeat
+                    game:GetService("RunService").RenderStepped:Wait()
+                    bhandle.Position = mouse.Hit.p
+                    wait(0.23)
+                until Character.Humanoid.Health == 100 or Character.Humanoid.Health == 0
+            end
+            wait()
+            lt = true
+        end
+    end)
+
+Character.Humanoid.Died:Connect(
+    function()
+        dead = true
+    end)
+repeat
+    game:GetService("RunService").RenderStepped:Wait()
+    if dead == false then
+    end
+    if lt == true and dead == false then
+        bhandle.CFrame = Character.Head.CFrame + Vector3.new(0, -15, 0)
+    elseif ltt == true and dead == false then
+        bhandle.CFrame = Character.Torso.CFrame * CFrame.new(-1.7, -2, 0)
+        bhandle.Rotation = Character.HumanoidRootPart.Rotation
+    end
+until Character.Humanoid.Health == 0

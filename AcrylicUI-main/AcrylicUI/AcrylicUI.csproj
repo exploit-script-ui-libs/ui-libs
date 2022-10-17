@@ -1,0 +1,111 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFrameworks>net6-windows</TargetFrameworks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<UseWindowsForms>true</UseWindowsForms>
+    <Version>1.0.0-preview5.7</Version>
+    <PackageId>AcrylicUI</PackageId>
+    <Authors>Micheal Colhoun</Authors>
+    <Company>ColhounTech</Company>
+    <PackageDescription>This package is a .NET Core WinForms Dark Themed Library for Windows 11</PackageDescription>
+    <RepositoryUrl>https://github.com/colhountech/AcrylicUI</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <ApplicationIcon />
+		<StartupObject />
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  
+	<ItemGroup>
+		<PackageReference Include="Svg" Version="3.4.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Controls\AcrylicTransparentLabel.cs" />
+	  <Compile Update="Controls\AcrylicToolStrip.cs">
+	    <SubType>Component</SubType>
+	  </Compile>
+	  <Compile Update="Controls\AcrylicTreeView.cs">
+	    <SubType>Component</SubType>
+	  </Compile>
+	  <Compile Update="Controls\AcrylicDataGridView.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
+	  <Compile Update="Controls\AcrylicCheckBox.cs">
+	    <SubType>Component</SubType>
+	  </Compile>
+	  <Compile Update="Controls\AcrylicMenuStrip.cs">
+	    <SubType>Component</SubType>
+	  </Compile>
+	  <Compile Update="Controls\AcrylicNumericUpDown.cs">
+	    <SubType>Component</SubType>
+	  </Compile>
+	  <Compile Update="Docking\Document.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
+	  <Compile Update="Docking\ToolWindow.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
+	  <Compile Update="Resources\DockIcons.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>DockIcons.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Icons.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Icons.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\MenuIcons.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>MenuIcons.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\TreeViewIcons.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>TreeViewIcons.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\DockIcons.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>DockIcons.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Icons.resx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\MenuIcons.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>MenuIcons.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\TreeViewIcons.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>TreeViewIcons.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	
+
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net5-windows|AnyCPU'">
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net5-windows|AnyCPU'">
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+</Project>
